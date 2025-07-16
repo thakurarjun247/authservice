@@ -1,46 +1,38 @@
-#version: '3.8'
-#
-#services:
-#  postgres:
-#    image: postgres:latest
-#    environment:
-#      - POSTGRES_DB=mydatabase
-#      - POSTGRES_USER=myuser
-#      - POSTGRES_PASSWORD=secret
-#    ports:
-#      - "5432:5432"
-#    volumes:
-#      - postgres_data:/var/lib/postgresql/data
-#    healthcheck:
-#      test: ["CMD-SHELL", "pg_isready -U myuser"]
-#      interval: 5s
-#      timeout: 5s
-#      retries: 5
-#
-#  authservice:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8081:8081"
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/mydatabase
-#      - SPRING_DATASOURCE_USERNAME=myuser
-#      - SPRING_DATASOURCE_PASSWORD=secret
-#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#    restart: unless-stopped
-#
-#volumes:
-#  postgres_data:
+version: '3.8'
+
 services:
   postgres:
-    image: 'postgres:latest'
+    image: postgres:latest
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=secret
     ports:
-      - '5432'
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s # Give the DB a bit more time to start up before health checks begin
+
+  authservice:
+    build:
+      context: .       # Build from current directory where Dockerfile resides
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"    # Map host port 8081 to container port 8081 (where Spring Boot listens)
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/mydatabase # 'postgres' is the service name
+      - SPRING_DATASOURCE_USERNAME=myuser
+      - SPRING_DATASOURCE_PASSWORD=secret
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
