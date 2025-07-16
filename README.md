@@ -3,6 +3,37 @@ Once of the most crucial microservice of the project freedom.
 
 https://www.youtube.com/watch?v=yodeo205pp0&t=84s
 
+## how to create users and access app on swagger
+open
+http://localhost:8081/swagger-ui/index.html
+
+### signup
+go to /signup under HomeController  
+press try it out  
+in the request body paste this, make sure the role is ADMIN if you want to see all users, later:
+
+`{
+  "email": "admin@admin.com",
+  "password": "admin",
+  "userRoles": [
+    "ADMIN"
+  ],
+  "authProvider": "LOCAL",
+  "userStatus": "ACTIVE"
+}`
+
+### login
+go to `swagger-login` endpoint  
+don't use `login` its deperecated  
+enter username and password  
+you are done.
+
+### view all users
+go to `/adimin/users` under admincontroller  
+try it out
+
+
+
 ## curl for endpoints
 
 ### login
