@@ -3,6 +3,38 @@ Once of the most crucial microservice of the project freedom.
 
 https://www.youtube.com/watch?v=yodeo205pp0&t=84s
 
+## run with docker
+
+1.  **Clean up previous runs (stop containers, remove networks and data volumes):**
+
+    ```bash
+    docker compose down --volumes
+    ```
+
+2.  **Build  application's image (rebuilds from scratch, ignoring cache):**
+
+    ```bash
+    docker compose build --no-cache authservice
+    ```
+
+3.  **Start application services (PostgreSQL and AuthService) in the background:**
+
+    ```bash
+    docker compose up -d
+    ```
+
+4.  **Check if your services are running:**
+
+    ```bash
+    docker compose ps
+    ```
+
+5.  **View your application's real-time logs:**
+
+    ```bash
+    docker compose logs -f authservice
+    ```
+
 ## how to create users and access app on swagger
 open
 http://localhost:8081/swagger-ui/index.html
