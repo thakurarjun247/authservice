@@ -66,10 +66,8 @@ public class SecurityConfig {
         return httpSecurity
                 .authorizeHttpRequests(
                         auth -> {
-                            auth.requestMatchers("/user/**").hasRole("USER"); // Only users with ROLE_USER can access,
-                            // must be authenticated
+
                             auth.requestMatchers("/admin/**").hasRole("ADMIN");
-                            auth.requestMatchers("/secured").authenticated();
                             auth.requestMatchers("/auth/**").authenticated();
                             auth.anyRequest().permitAll();
 
