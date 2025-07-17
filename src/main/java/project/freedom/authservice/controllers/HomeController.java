@@ -39,7 +39,7 @@ public class HomeController {
 
     @GetMapping("/health")
     public String health() {
-        return "Health is green as on  " + new Date();
+        return "updated: Health is green as on  " + new Date();
     }
 
     @PostMapping("/swagger-login")

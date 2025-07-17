@@ -4,7 +4,16 @@ Once of the most crucial microservice of the project freedom.
 https://www.youtube.com/watch?v=yodeo205pp0&t=84s
 
 ## run with docker
+### for minor code change 
+docker compose build authservice  
+docker compose up -d
 
+### for active dev  
+just make sure all services are running in docker with the help of two commands up there  
+stop authservice container in docker desktop  
+run the app from ide it will connect to postgres container  
+
+### for more thorough clean up
 1.  **Clean up previous runs (stop containers, remove networks and data volumes):**
 
     ```bash
@@ -14,7 +23,7 @@ https://www.youtube.com/watch?v=yodeo205pp0&t=84s
 2.  **Build  application's image (rebuilds from scratch, ignoring cache):**
 
     ```bash
-    docker compose build --no-cache authservice
+    docker compose build authservice
     ```
 
 3.  **Start application services (PostgreSQL and AuthService) in the background:**
